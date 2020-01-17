@@ -39,10 +39,23 @@ const {
 //   }
 // );
 
+const printPassTimes = function(str) {
+  for (const time of str) {
+    // console.log(time);
+    // console.log(time.riseTime);
+    // // console.log(toUTCString(time.riseTime));
+    // console.log(Date(time.riseTime));
+    console.log(
+      `Next pass at ${Date(time.riseTime)} for ${time.duration} seconds!`
+    );
+  }
+};
+
 nextISSTimesForMyLocation((error, flyTimes) => {
   if (error) {
     return console.log('Something went wrong!', error);
   }
 
-  console.log(flyTimes);
+  // console.log(flyTimes);
+  printPassTimes(flyTimes);
 });

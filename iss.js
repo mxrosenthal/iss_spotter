@@ -63,38 +63,38 @@ const fetchMyIp = function(callback) {
 };
 
 const fetchCoordsByIp = function(ip, callback) {
-  // request('https://ipvigilante.com/' + ip, function(error, response, body) {
-  // request(`https://ipapi.co/${ip}/json/`, function(error, response, body) {
-  //   console.log(body);
-  //   console.log('statuscode: ', response.statusCode);
-  //   if (error) callback('oops, to coodinates', null);
-  //   if (response.statusCode !== 200) {
-  //     if (response.statusCode === 400) {
-  //       const msg = `Status Code ${response.statusCode} when fetching coordinates because invalid IP. Response: ${body}`;
+  request('https://ipvigilante.com/' + ip, function(error, response, body) {
+    // request(`https://ipapi.co/${ip}/json/`, function(error, response, body) {
+    console.log(body);
+    console.log('statuscode: ', response.statusCode);
+    if (error) callback('oops, to coodinates', null);
+    if (response.statusCode !== 200) {
+      if (response.statusCode === 400) {
+        const msg = `Status Code ${response.statusCode} when fetching coordinates because invalid IP. Response: ${body}`;
 
-  //       callback(Error(msg), null);
-  //       return;
-  //     }
-  //     const msg = `Status Code ${response.statusCode} when fetching coordinates. Response: ${body}`;
-  //     callback(Error(msg), null);
-  //     return;
-  //   }
+        callback(Error(msg), null);
+        return;
+      }
+      const msg = `Status Code ${response.statusCode} when fetching coordinates. Response: ${body}`;
+      callback(Error(msg), null);
+      return;
+    }
 
-  //   // const data = JSON.parse(body);
-  //   // let latLong = {
-  //   //   latitude: fakeLatLongData.latitude,
-  //   //   longitude: fakeLatLongData.longitude
-  //   // };
+    const data = JSON.parse(body);
+    let latLong = {
+      latitude: fakeLatLongData.latitude,
+      longitude: fakeLatLongData.longitude
+    };
 
-  //   // callback(null, latLong);
-  // });
+    callback(null, latLong);
+  });
 
-  let latLong = {
-    latitude: fakeLatLongData.latitude,
-    longitude: fakeLatLongData.longitude
-  };
+  // let latLong = {
+  //   latitude: fakeLatLongData.latitude,
+  //   longitude: fakeLatLongData.longitude
+  // };
 
-  callback(null, latLong);
+  // callback(null, latLong);
 };
 
 const fetchISSFlyOverTimes = function(data, callback) {
@@ -114,8 +114,9 @@ const fetchISSFlyOverTimes = function(data, callback) {
       }
 
       const data = JSON.parse(body);
+      console.log(data);
       let flyOver = data.response;
-      // console.log('flyOver: ', flyOver);
+      console.log('flyOver: ', flyOver);
       callback(null, flyOver);
     }
   );
